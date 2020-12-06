@@ -4,27 +4,26 @@ const Header = () => <h2>Give your feedback</h2>
 
 const Button = ({ handleClick, text}) => <button onClick={handleClick}>{text}</button>
 
-const Statistics = (props) => {
-  const { nameGood, totalGood } = props.results.goodCounter
-  const { nameNeutral, totalNeutral } = props.results.neutralCounter
-  const { nameBad, totalBad } = props.results.badCounter
-  const total = totalGood + totalNeutral + totalBad
+const Statistic = ({text, value}) => <p>{text}:{value}</p>
+
+const Statistics = ({ results: { good,neutral, bad }}) => {
+  const total = good.total + neutral.total + bad.total
+  const avg = total / 3
+  const positiveShare = good.total / total * 100
 
   if (total>0) {
     return (
       <div>
         <h3>Statistics</h3>
-        <p>{nameGood}: {totalGood}</p>
-        <p>{nameNeutral}: {totalNeutral}</p>
-        <p>{nameBad}: {totalBad}</p>
-        <p>Total: {total}</p>
-        <p>Average: { (totalGood+totalNeutral+totalBad) / 3 }</p>
-        <p>Positive feedback: { total > 0 ? Math.round(totalGood / total * 100) : 0 } %</p>
+        <Statistic text={good.key} value={good.total} />
+        <Statistic text={neutral.key} value={neutral.total} />
+        <Statistic text={bad.key} value={bad.total} />
+        <p>Total: { total }</p>
+        <p>Average: { avg }</p>
+        <p>Positive feedback: { total > 0 ? positiveShare : 0 } %</p>
       </div>
     )
-  }
-
-  return (
+  } else return (
     <div>
       <p>No feedback given</p>
     </div>
@@ -33,38 +32,38 @@ const Statistics = (props) => {
 }
 
 const FeedBackTracker = () => {
-  const [ good, setGood ] = useState(0)
-  const [ neutral, setNeutral ] = useState(0)
-  const [ bad, setBad ] = useState(0)
+  const [ goodState, setGood ] = useState(0)
+  const [ neutralState, setNeutral ] = useState(0)
+  const [ badState, setBad ] = useState(0)
 
-  const incrementGood = () => setGood(good+1)
-  const incrementNeutral = () => setNeutral(neutral+1)
-  const incrementBad = () => setBad(bad+1)
+  const incrementGood = () => setGood(goodState+1)
+  const incrementNeutral = () => setNeutral(neutralState+1)
+  const incrementBad = () => setBad(badState+1)
 
-  const goodFeedback = 'good'
-  const neutralFeedback = 'neutral'
-  const badFeedback = 'bad'
+  const good = 'good'
+  const neutral = 'neutral'
+  const bad = 'bad'
 
   const results = {
-    goodCounter: {
-      nameGood: goodFeedback,
-      totalGood: good
+    good: {
+      key: good,
+      total: goodState
     },
-    neutralCounter: {
-      nameNeutral: neutralFeedback,
-      totalNeutral: neutral
+    neutral: {
+      key: neutral,
+      total: neutralState
     },
-    badCounter: {
-      nameBad: badFeedback,
-      totalBad: bad
+    bad: {
+      key: bad,
+      total: badState
     }
   }
 
   return (
     <div>
-      <Button handleClick={incrementGood} text={goodFeedback} />
-      <Button handleClick={incrementNeutral} text={neutralFeedback} />
-      <Button handleClick={incrementBad} text={badFeedback} />
+      <Button handleClick={incrementGood} text={good} />
+      <Button handleClick={incrementNeutral} text={neutral} />
+      <Button handleClick={incrementBad} text={bad} />
       <Statistics results={results} />
     </div>
   )
