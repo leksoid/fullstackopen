@@ -8,6 +8,7 @@ const Display = (props) => {
   const { nameGood, totalGood } = props.results.goodCounter
   const { nameNeutral, totalNeutral } = props.results.neutralCounter
   const { nameBad, totalBad } = props.results.badCounter
+  const total = totalGood + totalNeutral + totalBad
 
   return (
     <div>
@@ -15,6 +16,9 @@ const Display = (props) => {
       <p>{nameGood}: {totalGood}</p>
       <p>{nameNeutral}: {totalNeutral}</p>
       <p>{nameBad}: {totalBad}</p>
+      <p>Total: {total}</p>
+      <p>Average: { (totalGood+totalNeutral+totalBad) / 3 }</p>
+      <p>Positive feedback: { total > 0 ? Math.round(totalGood / total * 100) : 0 } %</p>
     </div>
   )
 }
