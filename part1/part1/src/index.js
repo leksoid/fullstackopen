@@ -1,19 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
-const Header = (props) => {
-  console.log("Header-------")
-  console.log(props)
-  return (
-    <div>
-      <h1>{props.courseName}</h1>
-    </div>
-  )
-}
+const Header = ({courseName}) => <h1>{courseName}</h1>
 
 const Content = (props) => {
-  console.log("Content-------")
-  console.log(props)
   return (
     <div>
       <Part part={props.parts[0].name} exercises={props.parts[0].exercises}/>
@@ -23,21 +13,9 @@ const Content = (props) => {
   )
 }
 
-const Part = (props) => {
-  console.log("Part-------")
-  console.log(props)
-  return (
-    <div>
-      <p>
-        {props.part} {props.exercises}
-      </p>
-    </div>
-  )
-}
+const Part = ({part, exercises}) => <p>{part} {exercises}</p>
 
 const Total = (props) => {
-  console.log("Total-----")
-  console.log(props)
   return (
     <div>
       <p>Number of exercises {props.parts[0].exercises+props.parts[1].exercises+props.parts[2].exercises}</p>
@@ -45,6 +23,62 @@ const Total = (props) => {
   )
 }
 
+const Hello = (props) => {
+  const { name, age } = props.author
+  const bornYear = () => new Date().getFullYear() - age
+  
+  return (
+    <div>
+      <p>Hello, {name}, {age} yo</p>
+  <p>You were probably born in {bornYear()}</p>
+    </div>
+  )
+}
+
+const Counter = () => {
+  const [ counter, setCounter ] = useState(0) // Returns a stateful value, and a function to update it.
+  const increment = () => setCounter(counter+1)
+  const reset = () => setCounter(0)
+  const decrease = () => setCounter(counter-1)
+
+  return (
+    <div>
+      <Display counter={counter}/>
+      <Button
+        handleClick={increment}
+        text='plus'
+      />  
+      <Button
+        handleClick={decrease}
+        text='minus'
+      />
+      <Button
+        handleClick={reset}
+        text='zero'
+      />        
+    </div>
+  )
+
+}
+
+const Display = ({counter}) => {
+  if (counter === 0) {
+    return (
+      <div>
+        the app will register your clicks
+      </div>
+    )
+  }
+
+  return (
+    <div>
+      <div>{counter} {counter !== 1 ? 'clicks' : 'click'} made</div>
+    </div>
+  )
+
+}
+
+const Button = ({ handleClick, text}) => <button onClick={handleClick}>{text}</button>
 
 const App = () => {
   const course = {
@@ -62,14 +96,20 @@ const App = () => {
         name: "State of a component",
         exercises: 14
       }]
+}
+
+  const author = {
+    name: "Alex",
+    age: 32
   }
-    
 
   return (
     <div>
+      <Hello author={author}/>
       <Header courseName={course.name}/>
       <Content parts={course.parts}/>
       <Total parts={course.parts}/>
+      <Counter />      
     </div>
   )
   
