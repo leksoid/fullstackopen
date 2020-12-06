@@ -4,23 +4,34 @@ const Header = () => <h2>Give your feedback</h2>
 
 const Button = ({ handleClick, text}) => <button onClick={handleClick}>{text}</button>
 
-const Statistic = ({text, value}) => <p>{text}:{value}</p>
+const Statistic = ({text, value}) => <tr><td>{text}</td><td>{value}</td></tr>
 
 const Statistics = ({ results: { good,neutral, bad }}) => {
   const total = good.total + neutral.total + bad.total
-  const avg = total / 3
-  const positiveShare = good.total / total * 100
+  const avg = Math.round((total / 3) * 100) / 100
+  const positiveShare = Math.round((good.total / total * 100) * 100) / 100
 
   if (total>0) {
     return (
       <div>
         <h3>Statistics</h3>
-        <Statistic text={good.key} value={good.total} />
-        <Statistic text={neutral.key} value={neutral.total} />
-        <Statistic text={bad.key} value={bad.total} />
-        <p>Total: { total }</p>
-        <p>Average: { avg }</p>
-        <p>Positive feedback: { total > 0 ? positiveShare : 0 } %</p>
+        <table>
+          <Statistic text={good.key} value={good.total} />
+          <Statistic text={neutral.key} value={neutral.total} />
+          <Statistic text={bad.key} value={bad.total} />
+          <tr>
+            <td>Total:</td>
+            <td>{total}</td>
+          </tr>
+          <tr>
+            <td>Average:</td>
+            <td>{ avg }</td>
+          </tr>
+          <tr>
+            <td>Positive feedback:</td>
+            <td>{ total > 0 ? positiveShare : 0 } %</td>
+          </tr>
+        </table>
       </div>
     )
   } else return (
