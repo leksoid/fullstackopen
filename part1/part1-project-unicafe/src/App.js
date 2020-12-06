@@ -4,23 +4,32 @@ const Header = () => <h2>Give your feedback</h2>
 
 const Button = ({ handleClick, text}) => <button onClick={handleClick}>{text}</button>
 
-const Display = (props) => {
+const Statistics = (props) => {
   const { nameGood, totalGood } = props.results.goodCounter
   const { nameNeutral, totalNeutral } = props.results.neutralCounter
   const { nameBad, totalBad } = props.results.badCounter
   const total = totalGood + totalNeutral + totalBad
 
+  if (total>0) {
+    return (
+      <div>
+        <h3>Statistics</h3>
+        <p>{nameGood}: {totalGood}</p>
+        <p>{nameNeutral}: {totalNeutral}</p>
+        <p>{nameBad}: {totalBad}</p>
+        <p>Total: {total}</p>
+        <p>Average: { (totalGood+totalNeutral+totalBad) / 3 }</p>
+        <p>Positive feedback: { total > 0 ? Math.round(totalGood / total * 100) : 0 } %</p>
+      </div>
+    )
+  }
+
   return (
     <div>
-      <h3>Statistics</h3>
-      <p>{nameGood}: {totalGood}</p>
-      <p>{nameNeutral}: {totalNeutral}</p>
-      <p>{nameBad}: {totalBad}</p>
-      <p>Total: {total}</p>
-      <p>Average: { (totalGood+totalNeutral+totalBad) / 3 }</p>
-      <p>Positive feedback: { total > 0 ? Math.round(totalGood / total * 100) : 0 } %</p>
+      <p>No feedback given</p>
     </div>
   )
+  
 }
 
 const FeedBackTracker = () => {
@@ -56,7 +65,7 @@ const FeedBackTracker = () => {
       <Button handleClick={incrementGood} text={goodFeedback} />
       <Button handleClick={incrementNeutral} text={neutralFeedback} />
       <Button handleClick={incrementBad} text={badFeedback} />
-      <Display results={results} />
+      <Statistics results={results} />
     </div>
   )
 }
