@@ -16,21 +16,23 @@ const Statistics = ({ results: { good,neutral, bad }}) => {
       <div>
         <h3>Statistics</h3>
         <table>
-          <Statistic text={good.key} value={good.total} />
-          <Statistic text={neutral.key} value={neutral.total} />
-          <Statistic text={bad.key} value={bad.total} />
-          <tr>
-            <td>Total:</td>
-            <td>{total}</td>
-          </tr>
-          <tr>
-            <td>Average:</td>
-            <td>{ avg }</td>
-          </tr>
-          <tr>
-            <td>Positive feedback:</td>
-            <td>{ total > 0 ? positiveShare : 0 } %</td>
-          </tr>
+          <tbody>
+            <Statistic text={good.key} value={good.total} />
+            <Statistic text={neutral.key} value={neutral.total} />
+            <Statistic text={bad.key} value={bad.total} />
+            <tr>
+              <td>Total:</td>
+              <td>{total}</td>
+            </tr>
+            <tr>
+              <td>Average:</td>
+              <td>{ avg }</td>
+            </tr>
+            <tr>
+              <td>Positive feedback:</td>
+              <td>{ total > 0 ? positiveShare : 0 } %</td>
+            </tr>
+          </tbody>
         </table>
       </div>
     )
