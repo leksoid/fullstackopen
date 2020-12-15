@@ -1,6 +1,7 @@
 import React from 'react'
 
-const Persons = ({filter, persons}) => {
+
+const Persons = ({filter, persons, handleDelete}) => {
 
     const filteredList = filter.length === 0 ? 
         persons : persons.filter(person => 
@@ -8,7 +9,7 @@ const Persons = ({filter, persons}) => {
 
     return (
         <ul>
-            {filteredList.map(person=><li key={person.id}>{person.name}: {person.phone}</li>)}
+            {filteredList.map(person=><li key={person.id}>{person.name}: {person.phone} <button onClick={()=>handleDelete(person.id)} >Remove</button></li>)}
         </ul>
     )
 }
