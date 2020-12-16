@@ -1,0 +1,15 @@
+.errorMessage {
+    border: 1px solid rgba(241, 6, 6, 0.81);
+    background-color: rgba(220, 17, 1, 0.16);
+    box-shadow: 0px 0px 2px #ff0303;
+    color: #ff0303;
+    font-size: 20px;
+}
+
+.successMessage {
+    border: 1px solid rgba(31, 90, 8, 0.81);
+    background-color: rgba(10, 88, 40, 0.16);
+    box-shadow: 0px 0px 2px rgba(31, 90, 8, 0.81);
+    color: rgba(31, 90, 8, 0.81);
+    font-size: 20px;
+}
