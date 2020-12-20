@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = 'https://limitless-mesa-01802.herokuapp.com/api/persons'
+const baseUrl = '/api/persons'
 
 const getAll = () => {
     return axios.get(baseUrl)
