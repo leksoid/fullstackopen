@@ -19,6 +19,7 @@ const App = () => {
     }, 5000)
   }
 
+  // TODO - update function to show error when server-side validation fails
   const addPerson = (event)=> {
     const nameObj = {
       name: newName,
@@ -86,7 +87,7 @@ const App = () => {
       <Notification notificationMessage={notificationMessage} />
       <h2>Phonebook</h2>
       <Filter handleFilterChange={handleFilterChange} filter={filter} />
-      <h3>Add a new entry</h3>
+      <h3>Add a new contact</h3>
       <PersonForm addPerson={addPerson} newName={newName} newPhone={newPhone} handleNameChange={handleNameChange} handlePhoneChange={handlePhoneChange}/>
       <h2>Contacts</h2>
       <Persons persons={persons} filter={filter} handleDelete={handleDelete}/>
